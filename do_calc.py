@@ -35,19 +35,21 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
             invalid_list.append(container_name)
             continue
 
-        metadata = containerService.get_container_properties()
-        print (f'Container Metadata: {metadata}')
+        # metadata = containerService.get_container_properties()
+        # print (f'Container Metadata: {metadata}')
         
         #Inner loop: check all blobs in container and sum size
         container_size = 0
         
         #for blob_name in containerService.list_blob_names():
-        blob_names = containerService.list_blob_names()
+        #blob_names = containerService.list_blob_names()
+        blobs = containerService.list_blobs()
     
         blob_count = 0
-        for blob_name in blob_names:
-            blob_count += 1
-            
+
+        for blob in blobs:
+            blob_count +=1
+         
             #This section may be unnecessary
             #print (f"*Test* {container_name} blobName: {blob_name}")
             # if blob_name is None:
@@ -59,8 +61,8 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
             #         }
             #     )
                     
-            blobService = containerService.get_blob_client(blob_name)
-            container_size += blobService.get_blob_properties().size
+            
+            container_size += blob.size
         #3) Check if container size > 0
         if (container_size == 0) or (blob_count == 0):
             #4)return "N/A for size"
