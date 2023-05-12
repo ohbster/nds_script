@@ -35,6 +35,9 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
             invalid_list.append(container_name)
             continue
 
+        metadata = containerService.get_container_properties()
+        print (f'Container Metadata: {metadata}')
+        
         #Inner loop: check all blobs in container and sum size
         container_size = 0
         
