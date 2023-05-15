@@ -22,6 +22,9 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
     archive_list = []
     delete_list = []
     invalid_list = []
+
+    print(f"Container Name\t\t\t\t\tSize (in bytes)")
+
     #1)Main Loop: check all container names
     for container_name in container_list:
         containerService = ContainerClient(
@@ -38,18 +41,18 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
         # metadata = containerService.get_container_properties()
         # print (f'Container Metadata: {metadata}')
         
+        
+        
         #Inner loop: check all blobs in container and sum size
         container_size = 0
         
         #for blob_name in containerService.list_blob_names():
-        #blob_names = containerService.list_blob_names()
-        blobs = containerService.list_blobs()
+        blob_names = containerService.list_blob_names()
     
         blob_count = 0
-
-        for blob in blobs:
-            blob_count +=1
-         
+        for blob_name in blob_names:
+            blob_count += 1
+            
             #This section may be unnecessary
             #print (f"*Test* {container_name} blobName: {blob_name}")
             # if blob_name is None:
@@ -61,8 +64,8 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
             #         }
             #     )
                     
-            
-            container_size += blob.size
+            blobService = containerService.get_blob_client(blob_name)
+            container_size += blobService.get_blob_properties().size
         #3) Check if container size > 0
         if (container_size == 0) or (blob_count == 0):
             #4)return "N/A for size"
@@ -81,6 +84,8 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
                     "items": blob_count
                 }
             )
+
+        print(f"{container_name}\t\t{container_size}")
     result = {'archive_list': archive_list,
                 'delete_list': delete_list,
                 'invalid_list': invalid_list,

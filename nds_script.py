@@ -19,4 +19,4 @@ with open(args.filename) as file:
     container_list = file.read().splitlines()
 
 result = do_calc(token_credential=token_credential,account_url=args.url,container_list=container_list)
-print (json.loads(result))
+#print (json.loads(result))
