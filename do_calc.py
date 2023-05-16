@@ -24,13 +24,10 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
     archive_list = []
     delete_list = []
     invalid_list = []
-<<<<<<< HEAD
     time_out_list = []
 
     print(f"Container Name\t\t\t\t\tSize (in bytes)")
 
-=======
->>>>>>> ce1a5b8c5b8e27ca622044ef5768bfe48335d807
     #1)Main Loop: check all container names
     for container_name in container_list:
         containerService = ContainerClient(
@@ -47,26 +44,14 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
                 )
             continue
 
-<<<<<<< HEAD
         #Inner loop: check all blobs in container and sum size
         container_size = 0
        
-=======
-        # metadata = containerService.get_container_properties()
-        # print (f'Container Metadata: {metadata}')
-        
-        #Inner loop: check all blobs in container and sum size
-        container_size = 0
-        
-        #for blob_name in containerService.list_blob_names():
-        #blob_names = containerService.list_blob_names()
->>>>>>> ce1a5b8c5b8e27ca622044ef5768bfe48335d807
         blobs = containerService.list_blobs()
     
         blob_count = 0
 
         for blob in blobs:
-<<<<<<< HEAD
             # if blob_count > MAX_BLOBS:
             #     time_out_list.append(
             #         {'name': container_name}
@@ -78,23 +63,6 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
          
             container_size += blob.size
 
-=======
-            blob_count +=1
-         
-            #This section may be unnecessary
-            #print (f"*Test* {container_name} blobName: {blob_name}")
-            # if blob_name is None:
-            #     print("Testing: blob_name==None")
-            #     delete_list.append(
-            #         {
-            #             "name" : container_name,
-            #             "size" : "N/A"
-            #         }
-            #     )
-                    
-            
-            container_size += blob.size
->>>>>>> ce1a5b8c5b8e27ca622044ef5768bfe48335d807
         #3) Check if container size > 0
         if (container_size == 0) or (blob_count == 0):
             #debug
@@ -115,10 +83,7 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
                     "items": blob_count
                 }
             )
-<<<<<<< HEAD
         print(f"{container_name}\t\t{container_size}")
-=======
->>>>>>> ce1a5b8c5b8e27ca622044ef5768bfe48335d807
     result = {'archive_list': archive_list,
                 'delete_list': delete_list,
                 'invalid_list': invalid_list,
