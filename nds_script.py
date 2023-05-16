@@ -1,6 +1,7 @@
 from do_calc import do_calc
 import json
 import argparse
+from tsv_out import tsv_out
 
 parser = argparse.ArgumentParser(
     prog='NDS Cleanup Helper Script',
@@ -20,3 +21,4 @@ with open(args.filename) as file:
 
 result = do_calc(token_credential=token_credential,account_url=args.url,container_list=container_list)
 #print (json.loads(result))
+tsv_out(result)
