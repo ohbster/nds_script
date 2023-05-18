@@ -47,7 +47,8 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
         #Inner loop: check all blobs in container and sum size
         container_size = 0
        
-        blobs = containerService.list_blobs()
+        blobs = containerService.list_blobs(include='versions')
+        #blobs = containerService.list_blobs()
     
         blob_count = 0
 
@@ -60,6 +61,7 @@ def do_calc(token_credential=None,account_url=None,container_list=None):
             blob_count +=1
             #debug
             print(f"container_name: {container_name}->blob_count == {blob_count}")
+            #print(f'version:{blob.version_id}, size: {}')
          
             container_size += blob.size
 
